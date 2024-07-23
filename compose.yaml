@@ -1,9 +1,31 @@
+version: '3.5'
+
 services:
+
+#  app:
+#    build: .
+#    ports:
+#      - "127.0.0.1:8080:8080"
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/noveo
+#      - SPRING_DATASOURCE_USERNAME=username
+#      - SPRING_DATASOURCE_PASSWORD=password
+#    depends_on:
+#      - postgres
+#    networks:
+#      - app-network
+
   postgres:
-    image: 'postgres:latest'
+    image: 'postgres:15.5'
     environment:
       - 'POSTGRES_DB=noveo'
       - 'POSTGRES_PASSWORD=password'
-      - 'POSTGRES_USER=user'
+      - 'POSTGRES_USER=username'
     ports:
-      - '5432'
+      - '5432:5432'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
