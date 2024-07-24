@@ -3,11 +3,11 @@ server:
   error:
     include-message: always
     include-binding-errors: always
+    include-stacktrace: never
 
 spring:
   application:
     name: noveo-test-assignment
-
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/noveo
@@ -20,9 +20,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
     hibernate:
       ddl-auto: create-drop
-
 
 app:
   productsToInit:
@@ -50,9 +50,20 @@ app:
   taxesToInit:
     - taxPercent: 19.0f
       regex-pattern: "^DE\\d{9}$"
+      country-code: DE
     - taxPercent: 22.0f
       regex-pattern: "^IT\\d{11}$"
+      country-code: IT
     - taxPercent: 24.0f
       regex-pattern: "^GR\\d{9}$"
+      country-code: GR
     - taxPercent: 20.0f
       regex-pattern: "^FR[A-Z]{2}\\d{9}$"
+      country-code: FR
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+

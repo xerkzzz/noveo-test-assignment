@@ -1,4 +1,4 @@
-package com.zakharovmm.noveotestassignment.dto;
+package com.zakharovmm.noveotestassignment.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -23,7 +23,7 @@ public enum PaymentProcessorType {
     @JsonCreator
     public static PaymentProcessorType fromValue(String value) {
         for (PaymentProcessorType type : PaymentProcessorType.values()) {
-            if (type.getValue().equalsIgnoreCase(value)) {
+            if (type.getValue().equalsIgnoreCase(value.trim())) {
                 return type;
             }
         }

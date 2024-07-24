@@ -1,17 +1,51 @@
 package com.zakharovmm.noveotestassignment.validator;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
 
-public class CouponValidator implements ConstraintValidator<ValidTaxNumber, String> {
+import com.zakharovmm.noveotestassignment.repository.CouponRepository;
+import jakarta.annotation.PostConstruct;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
-    private static final String COUPON_PATTERN = "^(P\\d{1,2}|P100|D\\d+)$";
+import java.util.Optional;
+import java.util.Set;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
+@RequiredArgsConstructor
+@Component
+public class CouponValidator implements ConstraintValidator<ValidCoupon, String> {
+
+    private final CouponRepository couponRepository;
+    private Set<Pattern> patterns;
+
+    @PostConstruct
+    void init() {
+        updatePatterns();
+    }
 
     @Override
     public boolean isValid(String coupon, ConstraintValidatorContext context) {
-        if (coupon == null) {
-            return false;
-        }
-        return coupon.matches(COUPON_PATTERN);
+        return Optional.ofNullable(coupon)
+                .map(c -> {
+                    if (checkValidity(c)) {
+                        return true;
+                    } else {
+                        updatePatterns();
+                        return checkValidity(c);
+                    }
+                })
+                .orElse(true);
+    }
+
+    private void updatePatterns() {
+        patterns = couponRepository.findAllCouponCodes().stream()
+                .map(Pattern::compile)
+                .collect(Collectors.toSet());
+    }
+
+    private boolean checkValidity(String coupon) {
+        return patterns.stream().anyMatch(pattern -> pattern.matcher(coupon).matches());
     }
 }

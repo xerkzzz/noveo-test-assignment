@@ -1,8 +1,8 @@
 package com.zakharovmm.noveotestassignment.dto;
 
 import com.zakharovmm.noveotestassignment.validator.ValidCoupon;
+import com.zakharovmm.noveotestassignment.validator.ValidPaymentProcessor;
 import com.zakharovmm.noveotestassignment.validator.ValidTaxNumber;
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -18,6 +18,6 @@ public class PurchaseRequestDto {
     @ValidCoupon
     private String couponCode;
 
-    @NotNull(message = "Payment processor type should be presented")
-    PaymentProcessorType paymentProcessor;
+    @ValidPaymentProcessor
+    private String paymentProcessor;
 }

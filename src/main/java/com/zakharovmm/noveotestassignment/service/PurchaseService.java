@@ -1,8 +1,8 @@
 package com.zakharovmm.noveotestassignment.service;
 
-import com.zakharovmm.noveotestassignment.dto.PurchaseRequestDto;
+import com.zakharovmm.noveotestassignment.model.PurchaseRequest;
 
 public interface PurchaseService {
-    String purchase(PurchaseRequestDto request);
+    Object purchase(PurchaseRequest request);
 
 }

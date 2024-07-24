@@ -1,14 +1,16 @@
 package com.zakharovmm.noveotestassignment.service.impl;
 
-import com.zakharovmm.noveotestassignment.dto.PriceCalculationRequestDto;
-import com.zakharovmm.noveotestassignment.dto.PurchaseRequestDto;
 import com.zakharovmm.noveotestassignment.exception.CommonAppException;
 import com.zakharovmm.noveotestassignment.mock.PaypalProcessor;
 import com.zakharovmm.noveotestassignment.mock.StripeProcessor;
+import com.zakharovmm.noveotestassignment.model.PriceCalculationRequest;
+import com.zakharovmm.noveotestassignment.model.PurchaseRequest;
 import com.zakharovmm.noveotestassignment.service.PriceService;
 import com.zakharovmm.noveotestassignment.service.PurchaseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,25 +22,26 @@ public class PurchaseServiceImpl implements PurchaseService {
 
 
     @Override
-    public String purchase(PurchaseRequestDto request) {
-        var price = priceService.calculatePrice(PriceCalculationRequestDto.builder()
+    public Object purchase(PurchaseRequest request) {
+
+        var price = priceService.calculatePrice(PriceCalculationRequest.builder()
                 .product(request.getProduct())
                 .taxNumber(request.getTaxNumber())
                 .couponCode(request.getCouponCode())
                 .build());
 
-      return switch (request.getPaymentProcessor()) {
+        return switch (request.getPaymentProcessor()) {
             case PAYPAL -> {
                 try {
                     paypalProcessor.makePayment(price.intValue());
-                    yield "";
+                    yield null;
                 } catch (Exception e) {
                     throw new CommonAppException(String.format("Paypal payment exception for [%s]", request));
                 }
             }
-            case STRIPE -> String.valueOf(stripeProcessor.pay(price.floatValue()));
-            default -> throw new CommonAppException(String.format("Unknown payment processor [%s]", request.getPaymentProcessor()));
+            case STRIPE -> Optional.of(stripeProcessor.pay(price.floatValue()));
+            default ->
+                    throw new CommonAppException(String.format("Unknown payment processor [%s]", request.getPaymentProcessor()));
         };
-
     }
 }

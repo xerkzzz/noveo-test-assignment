@@ -5,10 +5,8 @@ import com.zakharovmm.noveotestassignment.validator.ValidTaxNumber;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
-@Builder
 @Data
 @AllArgsConstructor
 public class PriceCalculationRequestDto {
@@ -16,7 +14,7 @@ public class PriceCalculationRequestDto {
     @NotNull(message = "Product id should be presented")
     private Long product;
 
-    @ValidTaxNumber
+    @ValidTaxNumber(message = "The tax number must be presented and follow the correct format.")
     private String taxNumber;
 
     @ValidCoupon

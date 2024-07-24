@@ -1,9 +1,9 @@
 package com.zakharovmm.noveotestassignment.service;
 
-import com.zakharovmm.noveotestassignment.dto.PriceCalculationRequestDto;
+import com.zakharovmm.noveotestassignment.model.PriceCalculationRequest;
 import java.math.BigDecimal;
 
 public interface PriceService {
 
-    BigDecimal calculatePrice(PriceCalculationRequestDto requestDto);
+    BigDecimal calculatePrice(PriceCalculationRequest requestDto);
 }

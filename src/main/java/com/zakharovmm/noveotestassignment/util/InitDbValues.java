@@ -4,8 +4,6 @@ import com.zakharovmm.noveotestassignment.config.DbValuesInitConfig;
 import com.zakharovmm.noveotestassignment.repository.CouponRepository;
 import com.zakharovmm.noveotestassignment.repository.ProductRepository;
 import com.zakharovmm.noveotestassignment.repository.TaxRepository;
-import java.util.Optional;
-import java.util.function.Supplier;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -13,6 +11,9 @@ import org.springframework.context.event.EventListener;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+import java.util.function.Supplier;
 
 @Slf4j
 @RequiredArgsConstructor

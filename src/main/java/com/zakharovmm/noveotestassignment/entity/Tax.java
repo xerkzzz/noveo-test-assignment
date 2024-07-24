@@ -1,12 +1,11 @@
 package com.zakharovmm.noveotestassignment.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import static jakarta.persistence.GenerationType.IDENTITY;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+
+import static jakarta.persistence.EnumType.*;
+import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Data
 @Entity
@@ -18,6 +17,9 @@ public class Tax {
     private Long id;
 
     private float taxPercent;
+
+    @Enumerated(STRING)
+    private CountryCode countryCode;
 
     private String regexPattern;
 }
