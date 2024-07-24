@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import static jakarta.persistence.GenerationType.IDENTITY;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = IDENTITY)

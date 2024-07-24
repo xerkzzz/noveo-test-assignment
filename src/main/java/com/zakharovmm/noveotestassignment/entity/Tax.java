@@ -1,5 +1,6 @@
 package com.zakharovmm.noveotestassignment.entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -9,11 +10,12 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "coupons")
-public class Coupon {
+@Table(name = "taxes")
+public class Tax {
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private String code;
-    private float discount;
+    private String countryCode;
+    private float taxPercent;
 }
