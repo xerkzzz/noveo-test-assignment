@@ -16,6 +16,8 @@ public class Tax {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-    private String countryCode;
+
     private float taxPercent;
+
+    private String regexPattern;
 }

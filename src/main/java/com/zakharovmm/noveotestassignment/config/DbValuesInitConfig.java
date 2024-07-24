@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "app")
-public class AppConfig {
+public class DbValuesInitConfig {
     private List<Product> productsToInit;
     private List<Coupon> couponsToInit;
     private List<Tax> taxesToInit;

@@ -4,8 +4,10 @@ import com.zakharovmm.noveotestassignment.dto.PriceCalculationRequestDto;
 import com.zakharovmm.noveotestassignment.dto.PurchaseRequestDto;
 import com.zakharovmm.noveotestassignment.service.PurchaseService;
 import com.zakharovmm.noveotestassignment.service.PriceService;
+
+import jakarta.validation.Valid;
 import java.math.BigDecimal;
-import javax.validation.Valid;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,16 +24,16 @@ public class MainController {
     private final PurchaseService purchaseService;
 
     @PostMapping("/calculate-price")
-    public ResponseEntity<BigDecimal> calculatePrice(@RequestBody @Valid  PriceCalculationRequestDto request) {
+    public ResponseEntity<BigDecimal> calculatePrice(@RequestBody @Valid PriceCalculationRequestDto request) {
 
         return ResponseEntity.ok(priceService.calculatePrice(request));
     }
 
     @PostMapping("/purchase")
-    public ResponseEntity<Void> purchase(@RequestBody @Valid PurchaseRequestDto request) {
+    public ResponseEntity<String> purchase(@RequestBody @Valid PurchaseRequestDto request) {
         purchaseService.purchase(request);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(purchaseService.purchase(request));
 
     }
 }
