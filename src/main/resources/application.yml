@@ -32,7 +32,7 @@ app:
       price: 20.0
     - name: "Чехол"
       price: 10.0
-    - name: " Patek Philippe Grandmaster Chime"
+    - name: "Patek Philippe Grandmaster Chime"
       price: 31194000.0
   couponsToInit:
     - code: "D15"
