@@ -1,19 +1,19 @@
 version: '3.5'
 
 services:
-#  app:
-#    build: .
-#    ports:
-#      - "127.0.0.1:${SERVER_PORT:-8337}:${SERVER_PORT:-8337}"
-#    environment:
-#      - SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-noveo}
-#      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-username}
-#      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-password}
-#      - SERVER_PORT=${SERVER_PORT:-8337}
-#    depends_on:
-#      - postgres
-#    networks:
-#      - app-network
+  app:
+    build: .
+    ports:
+      - 127.0.0.1:${SERVER_PORT:-8337}:${SERVER_PORT:-8337}
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://${POSTGRES_HOST:-postgres}:${POSTGRES_PORT:-5432}/${POSTGRES_DB:-noveo}
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER:-username}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD:-password}
+      - SERVER_PORT=${SERVER_PORT:-8337}
+    depends_on:
+      - postgres
+    networks:
+      - app-network
 
   postgres:
     image: 'postgres:15.5'
@@ -22,7 +22,7 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-password}
       - POSTGRES_USER=${POSTGRES_USER:-username}
     ports:
-      - "${POSTGRES_PORT:-5432}:5432"
+      - ${POSTGRES_PORT:-5432}:5432
     networks:
       - app-network
 

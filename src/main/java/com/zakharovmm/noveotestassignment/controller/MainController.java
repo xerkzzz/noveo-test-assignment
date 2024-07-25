@@ -2,6 +2,7 @@ package com.zakharovmm.noveotestassignment.controller;
 
 import com.zakharovmm.noveotestassignment.dto.PriceCalculationRequestDto;
 import com.zakharovmm.noveotestassignment.dto.PurchaseRequestDto;
+import com.zakharovmm.noveotestassignment.handler.PurchaseResponseHandler;
 import com.zakharovmm.noveotestassignment.mapper.PriceCalculationMapper;
 import com.zakharovmm.noveotestassignment.mapper.PurchaseMapper;
 import com.zakharovmm.noveotestassignment.service.PriceService;
@@ -27,6 +28,8 @@ public class MainController {
     private final PriceCalculationMapper priceCalculationMapper;
     private final PurchaseMapper purchaseMapper;
 
+    private final PurchaseResponseHandler responseHandler;
+
     @PostMapping("/calculate-price")
     public ResponseEntity<BigDecimal> calculatePrice(@RequestBody @Valid PriceCalculationRequestDto request) {
 
@@ -34,9 +37,9 @@ public class MainController {
     }
 
     @PostMapping("/purchase")
-    public ResponseEntity<Object> purchase(@RequestBody @Valid PurchaseRequestDto request) {
+    public ResponseEntity<String> purchase(@RequestBody @Valid PurchaseRequestDto request) {
+        var response = purchaseService.purchase(purchaseMapper.map(request));
 
-        return ResponseEntity.ok(purchaseService.purchase(purchaseMapper.map(request)));
-
+        return responseHandler.handleResponse(response);
     }
 }

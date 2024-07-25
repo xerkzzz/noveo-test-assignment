@@ -5,8 +5,10 @@ import com.zakharovmm.noveotestassignment.validator.ValidTaxNumber;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 @AllArgsConstructor
 public class PriceCalculationRequestDto {

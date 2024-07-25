@@ -4,8 +4,10 @@ import com.zakharovmm.noveotestassignment.validator.ValidCoupon;
 import com.zakharovmm.noveotestassignment.validator.ValidPaymentProcessor;
 import com.zakharovmm.noveotestassignment.validator.ValidTaxNumber;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Data;
 
+@Builder
 @Data
 public class PurchaseRequestDto {
 
